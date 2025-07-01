@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { SupabaseService } from 'src/app/services/supabase.service';
 
 @Component({
@@ -14,7 +15,7 @@ export class TelaCadastrosComponent implements OnInit {
   constructor(private supabaseService: SupabaseService){}
 
   ngOnInit(): void {
-    this.carregarCategorias();
+    this.carregarCategorias(); 
   }
 
   opcaoSelecionada: 'categoria' | 'item' | 'gasto' = 'categoria';

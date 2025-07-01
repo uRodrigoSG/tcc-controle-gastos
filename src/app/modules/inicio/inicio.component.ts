@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { SupabaseService } from 'src/app/services/supabase.service';
 
 @Component({
   selector: 'app-inicio',
@@ -8,9 +9,14 @@ import { Router } from '@angular/router';
 })
 export class InicioComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  estaLogado = false;
+
+  constructor(private supabaseService: SupabaseService, private router: Router) { }
 
   ngOnInit(): void {
+    this.supabaseService.logado$.subscribe((logado) => {
+      this.estaLogado = logado;
+    });
   }
 
   irParaLogin(){

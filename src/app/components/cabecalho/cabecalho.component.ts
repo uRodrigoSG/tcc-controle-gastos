@@ -1,4 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
 import { SupabaseService } from 'src/app/services/supabase.service';
 
 @Component({
@@ -15,7 +16,7 @@ export class CabecalhoComponent implements OnInit {
   
   estaLogado = false;
 
-  constructor(private supabaseService: SupabaseService) { }
+  constructor(private supabaseService: SupabaseService, private router: Router) { }
 
   ngOnInit(): void {
     this.supabaseService.logado$.subscribe((logado) => {
@@ -24,20 +25,37 @@ export class CabecalhoComponent implements OnInit {
   }
 
   onClickLogin(){
-    this.irParaLogin.emit();
+      this.irParaLogin.emit() 
   }
 
   onClickRegister(){
-    this.irParaRegister.emit();
+    if(this.estaLogado){
+     this.irParaRegister.emit();
+    }
+    else{
+      this.router.navigate(['/login']);
+      alert('Necessário fazer login. Verifique !!!');
+    };
   }
 
   onClickCadastros(){
-    
-    this.irParaCadastros.emit();
+    if(this.estaLogado){
+     this.irParaCadastros.emit();
+    }
+    else{
+      this.router.navigate(['/login']);
+      alert('Necessário fazer login. Verifique !!!');
+    };    
   }
 
   onClickHistorico(){
-    this.irParaHistorico.emit();
+    if(this.estaLogado){
+     this.irParaHistorico.emit();
+    }
+    else{
+      this.router.navigate(['/login']);
+      alert('Necessário fazer login. Verifique !!!');
+    };   
   }
 
   logout() {

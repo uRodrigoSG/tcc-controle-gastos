@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Gasto } from 'src/app/models/gastos-form.model';
+import { SupabaseService } from 'src/app/services/supabase.service';
 
 @Component({
   selector: 'app-tela-totais',
@@ -7,7 +9,7 @@ import { Gasto } from 'src/app/models/gastos-form.model';
   styleUrls: ['./tela-totais.component.css']
 })
 export class TelaTotaisComponent implements OnInit {
-
+  
   constructor() { }
 
   gastos: Gasto[] = [
@@ -27,7 +29,7 @@ export class TelaTotaisComponent implements OnInit {
   meta = 1000;
 
   ngOnInit(): void {
-    this.calcularTotais();
+    this.calcularTotais();  
   }
 
   calcularTotais() {

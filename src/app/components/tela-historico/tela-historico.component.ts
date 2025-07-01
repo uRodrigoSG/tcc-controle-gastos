@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Gasto } from 'src/app/models/gastos-form.model';
+import { SupabaseService } from 'src/app/services/supabase.service';
 
 @Component({
   selector: 'app-tela-historico',
@@ -28,7 +30,8 @@ export class TelaHistoricoComponent implements OnInit {
   };
 
   ngOnInit(): void {
-    this.aplicarFiltros(); // inicia com todos os gastos
+      this.aplicarFiltros()// inicia com todos os gastos
+
   }
 
   aplicarFiltros(): void {
