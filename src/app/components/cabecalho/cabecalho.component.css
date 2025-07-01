@@ -1,0 +1,38 @@
+.footer-layout {
+  margin: 0;
+  padding: 0;
+}
+
+.custom-footer {
+  background: #f0f2f5;
+  padding: 20px 40px;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.footer-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.footer-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo {
+  height: 40px;
+  width: auto;
+}
+
+.site-title {
+  font-weight: bold;
+  font-size: 18px;
+}

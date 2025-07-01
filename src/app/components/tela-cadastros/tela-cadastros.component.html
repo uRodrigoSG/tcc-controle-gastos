@@ -1,0 +1,80 @@
+<nz-card nzTitle="Cadastros">
+  <nz-radio-group [(ngModel)]="opcaoSelecionada">
+    <label nz-radio-button nzValue="categoria">Categoria</label>
+    <label nz-radio-button nzValue="item">Item</label>
+    <label nz-radio-button nzValue="gasto">Gasto</label>
+  </nz-radio-group>
+
+  <form (ngSubmit)="salvar()">
+    <!-- Cadastro de Categoria -->
+    <div *ngIf="opcaoSelecionada === 'categoria'" style="margin-top: 20px;">
+      <nz-form-item>
+        <nz-form-label>Descrição da Categoria</nz-form-label>
+        <nz-form-control>
+          <input nz-input [(ngModel)]="novaCategoria" name="categoria" required />
+        </nz-form-control>
+      </nz-form-item>
+      <button nz-button nzType="primary" [disabled]="!novaCategoria" (click)="salvarCategoria()">Salvar Categoria</button>
+    </div>
+
+    <!-- Cadastro de Item -->
+    <div *ngIf="opcaoSelecionada === 'item'" style="margin-top: 20px;">
+      <nz-form-item>
+        <nz-form-label>Descrição do Item</nz-form-label>
+        <nz-form-control>
+          <input nz-input [(ngModel)]="novoItem.descricao" name="descricaoItem" required />
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label>Categoria</nz-form-label>
+        <nz-form-control>
+          <nz-select [(ngModel)]="novoItem.categoria" name="categoriaItem" required>
+            <nz-option *ngFor="let cat of categorias" [nzValue]="cat" [nzLabel]="cat"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+
+      <button nz-button nzType="primary" [disabled]="!novoItem.descricao || !novoItem.categoria">Salvar Item</button>
+    </div>
+
+    <!-- Cadastro de Gasto -->
+    <div *ngIf="opcaoSelecionada === 'gasto'" style="margin-top: 20px;">
+      <nz-form-item>
+        <nz-form-label>Categoria</nz-form-label>
+        <nz-form-control>
+           <nz-select [(ngModel)]="novoGasto.categoria" name="categoriaGasto" required>
+           <nz-option *ngFor="let cat of categorias" [nzValue]="cat" [nzLabel]="cat"></nz-option>
+           </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label>Item</nz-form-label>
+        <nz-form-control>
+          <nz-select [(ngModel)]="novoGasto.item" name="itemGasto" required>
+            <nz-option *ngFor="let item of itens" [nzValue]="item.descricao" [nzLabel]="item.descricao"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label>Data</nz-form-label>
+        <nz-form-control>
+          <input nz-input type="date" [(ngModel)]="novoGasto.data" name="dataGasto" required />
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label>Valor (R$)</nz-form-label>
+        <nz-form-control>
+          <input nz-input type="number" step="0.01" [(ngModel)]="novoGasto.valor" name="valorGasto" required />
+        </nz-form-control>
+      </nz-form-item>
+
+      <button nz-button nzType="primary" [disabled]="!novoGasto.categoria || !novoGasto.item || !novoGasto.data || !novoGasto.valor">
+        Salvar Gasto
+      </button>
+    </div>
+  </form>
+</nz-card>

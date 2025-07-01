@@ -1,0 +1,12 @@
+nz-card {
+  margin: 20px;
+}
+
+.alerta-meta {
+  color: red;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+}

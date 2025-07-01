@@ -1,0 +1,18 @@
+nz-card {
+  margin: 20px auto;
+  max-width: 800px;
+}
+
+nz-form-item {
+  margin-bottom: 16px;
+}
+
+button[nz-button] {
+  margin-top: 10px;
+}
+
+nz-radio-group {
+  margin-bottom: 24px;
+  display: flex;
+  gap: 16px;
+}

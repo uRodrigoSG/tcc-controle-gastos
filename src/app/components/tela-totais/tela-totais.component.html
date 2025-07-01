@@ -1,0 +1,57 @@
+<nz-card>
+  <h2>Totais dos Gastos</h2>
+
+  <div *ngIf="totalGastosNoMesAtual > meta" class="alerta-meta" style="color: red; display: flex; align-items: center; gap: 5px;">
+     <span nz-icon nzType="arrow-down" nzTheme="outline" nzSpin="false"></span>
+      ATENÇÃO! Gastos do mês ultrapassaram R$ {{ meta | number:'1.2-2' }}
+  </div>
+
+
+  <nz-divider>Por Categoria</nz-divider>
+  <nz-table [nzData]="totaisPorCategoria" [nzPageSize]="5" [nzShowSizeChanger]="false" [nzFrontPagination]="true" [nzScroll]="{ x: '100%' }">
+    <thead>
+      <tr>
+        <th>Categoria</th>
+        <th>Total (R$)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let cat of totaisPorCategoria">
+        <td>{{ cat.categoria }}</td>
+        <td>{{ cat.total | number:'1.2-2' }}</td>
+      </tr>
+    </tbody>
+  </nz-table>
+
+  <nz-divider>Por Item</nz-divider>
+  <nz-table [nzData]="totaisPorItem" [nzPageSize]="5" [nzShowSizeChanger]="false" [nzFrontPagination]="true" [nzScroll]="{ x: '100%' }">
+    <thead>
+      <tr>
+        <th>Item</th>
+        <th>Total (R$)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of totaisPorItem">
+        <td>{{ item.item }}</td>
+        <td>{{ item.total | number:'1.2-2' }}</td>
+      </tr>
+    </tbody>
+  </nz-table>
+
+  <nz-divider>Por Mês</nz-divider>
+  <nz-table [nzData]="totaisPorMes" [nzPageSize]="5" [nzShowSizeChanger]="false" [nzFrontPagination]="true" [nzScroll]="{ x: '100%' }">
+    <thead>
+      <tr>
+        <th>Mês/Ano</th>
+        <th>Total (R$)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let mes of totaisPorMes">
+        <td>{{ mes.mesAno }}</td>
+        <td>{{ mes.total | number:'1.2-2' }}</td>
+      </tr>
+    </tbody>
+  </nz-table>
+</nz-card>

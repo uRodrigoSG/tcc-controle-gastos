@@ -1,0 +1,11 @@
+.cadastro-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: #f0f2f5;
+}
+
+.cadastro-card {
+  width: 500px;
+}
