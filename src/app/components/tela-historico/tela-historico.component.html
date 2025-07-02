@@ -1,5 +1,9 @@
 <div class="filtros">
-  <nz-date-picker [(ngModel)]="filtros.data" (ngModelChange)="aplicarFiltros()" placeholder="Filtrar por data" ></nz-date-picker>
+  <nz-date-picker
+    [(ngModel)]="filtros.data"
+    (ngModelChange)="aplicarFiltros()"
+    placeholder="Filtrar por data"
+  ></nz-date-picker>
   <nz-date-picker
     nzMode="month"
     [(ngModel)]="filtros.mes"
@@ -7,15 +11,31 @@
     placeholder="Filtrar por mês"
   ></nz-date-picker>
 
-  <input nz-input type="number" [(ngModel)]="filtros.valor" (ngModelChange)="aplicarFiltros()" placeholder="Valor" />
+  <input
+    nz-input
+    type="number"
+    [(ngModel)]="filtros.valor"
+    (ngModelChange)="aplicarFiltros()"
+    placeholder="Valor"
+  />
   <nz-select [(ngModel)]="filtros.tipoValor" (ngModelChange)="aplicarFiltros()">
     <nz-option nzValue="igual" nzLabel="Igual"></nz-option>
-  <nz-option nzValue="maior" nzLabel="Maior que"></nz-option>
-  <nz-option nzValue="menor" nzLabel="Menor que"></nz-option>
+    <nz-option nzValue="maior" nzLabel="Maior que"></nz-option>
+    <nz-option nzValue="menor" nzLabel="Menor que"></nz-option>
   </nz-select>
 
-  <input nz-input [(ngModel)]="filtros.categoria" (ngModelChange)="aplicarFiltros()" placeholder="Categoria" />
-  <input nz-input [(ngModel)]="filtros.item" (ngModelChange)="aplicarFiltros()" placeholder="Item" />
+  <input
+    nz-input
+    [(ngModel)]="filtros.categoria"
+    (ngModelChange)="aplicarFiltros()"
+    placeholder="Categoria"
+  />
+  <input
+    nz-input
+    [(ngModel)]="filtros.item"
+    (ngModelChange)="aplicarFiltros()"
+    placeholder="Item"
+  />
 
   <button nz-button (click)="limparFiltros()">Limpar</button>
 </div>
@@ -31,10 +51,10 @@
   </thead>
   <tbody>
     <tr *ngFor="let gasto of gastosFiltrados">
-      <td>{{ gasto.data | date: 'shortDate' }}</td>
+      <td>{{ gasto.data | date : "shortDate" }}</td>
       <td>{{ gasto.categoria }}</td>
       <td>{{ gasto.item }}</td>
-      <td>{{ gasto.valor | currency: 'BRL' }}</td>
+      <td>{{ gasto.valor | currency : "BRL" }}</td>
     </tr>
   </tbody>
 </nz-table>

@@ -4,29 +4,26 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-cadastros',
   templateUrl: './cadastros.component.html',
-  styleUrls: ['./cadastros.component.css']
+  styleUrls: ['./cadastros.component.css'],
 })
 export class CadastrosComponent implements OnInit {
+  constructor(private router: Router) {}
 
-  constructor(private router: Router) { }
+  ngOnInit(): void {}
 
-  ngOnInit(): void {
-  }
-
-  irParaLogin(){
+  irParaLogin() {
     this.router.navigate(['/login']);
   }
 
-  irParaRegister(){
+  irParaRegister() {
     this.router.navigate(['/cadastro-user']);
   }
 
-  irParaCadastros(){
+  irParaCadastros() {
     this.router.navigate(['/cadastros']);
   }
 
-  irParaHistorico(){
+  irParaHistorico() {
     this.router.navigate(['/historico']);
   }
-
 }

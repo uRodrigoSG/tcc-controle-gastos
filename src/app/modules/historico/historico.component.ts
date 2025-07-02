@@ -4,28 +4,26 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-historico',
   templateUrl: './historico.component.html',
-  styleUrls: ['./historico.component.css']
+  styleUrls: ['./historico.component.css'],
 })
 export class HistoricoComponent implements OnInit {
+  constructor(private router: Router) {}
 
-  constructor(private router: Router) { }
+  ngOnInit(): void {}
 
-  ngOnInit(): void {
-  }
-
-  irParaLogin(){
+  irParaLogin() {
     this.router.navigate(['/login']);
   }
 
-  irParaRegister(){
+  irParaRegister() {
     this.router.navigate(['/cadastro-user']);
   }
 
-  irParaCadastros(){
+  irParaCadastros() {
     this.router.navigate(['/cadastros']);
   }
 
-  irParaHistorico(){
+  irParaHistorico() {
     this.router.navigate(['/historico']);
   }
 }

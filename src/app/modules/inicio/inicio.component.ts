@@ -5,13 +5,15 @@ import { SupabaseService } from 'src/app/services/supabase.service';
 @Component({
   selector: 'app-inicio',
   templateUrl: './inicio.component.html',
-  styleUrls: ['./inicio.component.css']
+  styleUrls: ['./inicio.component.css'],
 })
 export class InicioComponent implements OnInit {
-
   estaLogado = false;
 
-  constructor(private supabaseService: SupabaseService, private router: Router) { }
+  constructor(
+    private supabaseService: SupabaseService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.supabaseService.logado$.subscribe((logado) => {
@@ -19,20 +21,19 @@ export class InicioComponent implements OnInit {
     });
   }
 
-  irParaLogin(){
+  irParaLogin() {
     this.router.navigate(['/login']);
   }
 
-  irParaRegister(){
+  irParaRegister() {
     this.router.navigate(['/cadastro-user']);
   }
 
-  irParaCadastros(){
+  irParaCadastros() {
     this.router.navigate(['/cadastros']);
   }
 
-  irParaHistorico(){
+  irParaHistorico() {
     this.router.navigate(['/historico']);
   }
-
 }

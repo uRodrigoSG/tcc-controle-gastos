@@ -4,34 +4,57 @@
       <nz-form-item>
         <nz-form-label [nzSpan]="6" nzRequired>Nome completo</nz-form-label>
         <nz-form-control [nzSpan]="18" nzErrorTip="Informe seu nome completo.">
-          <input nz-input formControlName="nomeCompleto" placeholder="Digite seu nome completo" />
+          <input
+            nz-input
+            formControlName="nomeCompleto"
+            placeholder="Digite seu nome completo"
+          />
         </nz-form-control>
       </nz-form-item>
 
       <nz-form-item>
         <nz-form-label [nzSpan]="6" nzRequired>E-mail</nz-form-label>
         <nz-form-control [nzSpan]="18" nzErrorTip="Informe um e-mail válido.">
-          <input nz-input formControlName="email" placeholder="Digite seu e-mail" />
+          <input
+            nz-input
+            formControlName="email"
+            placeholder="Digite seu e-mail"
+          />
         </nz-form-control>
       </nz-form-item>
 
       <nz-form-item>
         <nz-form-label [nzSpan]="6" nzRequired>Senha</nz-form-label>
         <nz-form-control [nzSpan]="18" nzErrorTip="A senha é obrigatória.">
-          <input nz-input type="password" formControlName="senha" placeholder="Digite sua senha" />
+          <input
+            nz-input
+            type="password"
+            formControlName="senha"
+            placeholder="Digite sua senha"
+          />
         </nz-form-control>
       </nz-form-item>
 
       <nz-form-item>
         <nz-form-label [nzSpan]="6" nzRequired>Confirmar senha</nz-form-label>
-        <nz-form-control [nzSpan]="18" [nzErrorTip]="'As senhas não coincidem.'">
-          <input nz-input type="password" formControlName="confirmarSenha" placeholder="Confirme a senha" />
+        <nz-form-control
+          [nzSpan]="18"
+          [nzErrorTip]="'As senhas não coincidem.'"
+        >
+          <input
+            nz-input
+            type="password"
+            formControlName="confirmarSenha"
+            placeholder="Confirme a senha"
+          />
         </nz-form-control>
       </nz-form-item>
 
       <nz-form-item>
         <nz-form-control [nzSpan]="18" [nzOffset]="6">
-          <button nz-button nzType="primary" [disabled]="!cadastroForm.valid">Cadastrar</button>
+          <button nz-button nzType="primary" [disabled]="!cadastroForm.valid">
+            Cadastrar
+          </button>
         </nz-form-control>
       </nz-form-item>
     </form>

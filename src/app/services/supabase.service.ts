@@ -4,7 +4,7 @@ import { createClient, SupabaseClient } from '@supabase/supabase-js';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class SupabaseService {
   private supabase: SupabaseClient;
@@ -22,11 +22,12 @@ export class SupabaseService {
   }
 
   async inserirCategoria(desCat: string) {
+    // Pegar usuario para gravação na tabela de Categorias
+    var CodUsu = this.getPerfilAtual().CodUsu;
+
     const { data, error } = await this.supabase
       .from('Categorias')
-      .insert([
-        { DesCat: desCat }
-      ]);
+      .insert([{ DesCat: desCat }, { CodUsu: CodUsu }]);
 
     if (error) {
       console.error('Erro ao inserir categoria:', error.message);
@@ -36,11 +37,11 @@ export class SupabaseService {
   }
 
   async listarCategorias() {
-  const { data, error } = await this.supabase
-    .from('Categorias')
-    .select('CodCat,DesCat');
+    const { data, error } = await this.supabase
+      .from('Categorias')
+      .select('CodCat,DesCat');
 
-  return { data, error };
+    return { data, error };
   }
 
   async signUp(email: string, password: string) {
@@ -50,7 +51,7 @@ export class SupabaseService {
   async salvarUsuario(userId: string, nome: string) {
     return await this.supabase.from('Usuario').insert({
       CadUsu: userId,
-      NomUsu: nome
+      NomUsu: nome,
     });
   }
 
@@ -58,7 +59,7 @@ export class SupabaseService {
   async login(email: string, senha: string): Promise<any> {
     const { data, error } = await this.supabase.auth.signInWithPassword({
       email,
-      password: senha
+      password: senha,
     });
 
     if (error) {
@@ -74,7 +75,10 @@ export class SupabaseService {
       .eq('CadUsu', userId);
 
     if (erroPerfil || !perfil || perfil.length === 0) {
-      console.error('Erro ao buscar perfil:', erroPerfil?.message || 'Perfil não encontrado');
+      console.error(
+        'Erro ao buscar perfil:',
+        erroPerfil?.message || 'Perfil não encontrado'
+      );
       this.logadoSubject.next(false);
       return undefined;
     }
@@ -100,4 +104,3 @@ export class SupabaseService {
     return this.logadoSubject.getValue();
   }
 }
-

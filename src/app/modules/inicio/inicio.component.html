@@ -1,4 +1,8 @@
-
-<app-cabecalho (irParaLogin)="irParaLogin()" (irParaRegister)="irParaRegister()" (irParaCadastros)="irParaCadastros()" (irParaHistorico)="irParaHistorico()"></app-cabecalho>
+<app-cabecalho
+  (irParaLogin)="irParaLogin()"
+  (irParaRegister)="irParaRegister()"
+  (irParaCadastros)="irParaCadastros()"
+  (irParaHistorico)="irParaHistorico()"
+></app-cabecalho>
 <app-tela-totais *ngIf="estaLogado"></app-tela-totais>
-<app-rodape ></app-rodape>
+<app-rodape></app-rodape>

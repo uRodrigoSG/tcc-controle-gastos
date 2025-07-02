@@ -4,16 +4,8 @@ import { CadastroUserComponent } from './cadastro-user.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { CadastroUserRoutingModule } from './cadastro-user-routing.module';
 
-
-
 @NgModule({
-  declarations: [
-    CadastroUserComponent
-  ],
-  imports: [
-    CommonModule,
-    SharedModule,
-    CadastroUserRoutingModule,
-  ]
+  declarations: [CadastroUserComponent],
+  imports: [CommonModule, SharedModule, CadastroUserRoutingModule],
 })
-export class CadastroUserModule { }
+export class CadastroUserModule {}

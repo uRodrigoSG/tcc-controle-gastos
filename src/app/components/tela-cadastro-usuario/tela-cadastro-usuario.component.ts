@@ -6,22 +6,28 @@ import { SupabaseService } from 'src/app/services/supabase.service';
 @Component({
   selector: 'app-tela-cadastro-usuario',
   templateUrl: './tela-cadastro-usuario.component.html',
-  styleUrls: ['./tela-cadastro-usuario.component.css']
+  styleUrls: ['./tela-cadastro-usuario.component.css'],
 })
 export class TelaCadastroUsuarioComponent implements OnInit {
-
   cadastroForm!: FormGroup;
   carregando = false;
 
-  constructor(private fb: FormBuilder, private supabaseService: SupabaseService, private router: Router) {}
+  constructor(
+    private fb: FormBuilder,
+    private supabaseService: SupabaseService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
-    this.cadastroForm = this.fb.group({
-      nomeCompleto: [null, [Validators.required]],
-      email: [null, [Validators.required, Validators.email]],
-      senha: [null, [Validators.required]],
-      confirmarSenha: [null, [Validators.required]]
-    }, { validators: this.matchPassword });
+    this.cadastroForm = this.fb.group(
+      {
+        nomeCompleto: [null, [Validators.required]],
+        email: [null, [Validators.required, Validators.email]],
+        senha: [null, [Validators.required]],
+        confirmarSenha: [null, [Validators.required]],
+      },
+      { validators: this.matchPassword }
+    );
   }
 
   matchPassword(group: FormGroup) {
@@ -52,7 +58,7 @@ export class TelaCadastroUsuarioComponent implements OnInit {
       this.carregando = false;
       this.router.navigate(['/login']);
     } else {
-      Object.values(this.cadastroForm.controls).forEach(control => {
+      Object.values(this.cadastroForm.controls).forEach((control) => {
         control.markAsDirty();
         control.updateValueAndValidity({ onlySelf: true });
       });

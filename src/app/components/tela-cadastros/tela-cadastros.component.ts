@@ -5,17 +5,16 @@ import { SupabaseService } from 'src/app/services/supabase.service';
 @Component({
   selector: 'app-tela-cadastros',
   templateUrl: './tela-cadastros.component.html',
-  styleUrls: ['./tela-cadastros.component.css']
+  styleUrls: ['./tela-cadastros.component.css'],
 })
 export class TelaCadastrosComponent implements OnInit {
-
   novaCategoria: string = '';
   categorias: string[] = [];
 
-  constructor(private supabaseService: SupabaseService){}
+  constructor(private supabaseService: SupabaseService) {}
 
   ngOnInit(): void {
-    this.carregarCategorias(); 
+    this.carregarCategorias();
   }
 
   opcaoSelecionada: 'categoria' | 'item' | 'gasto' = 'categoria';
@@ -45,7 +44,9 @@ export class TelaCadastrosComponent implements OnInit {
       return;
     }
 
-    const { data, error } = await this.supabaseService.inserirCategoria(this.novaCategoria);
+    const { data, error } = await this.supabaseService.inserirCategoria(
+      this.novaCategoria
+    );
 
     if (error) {
       alert('Erro ao salvar categoria: ' + error.message);
@@ -58,14 +59,14 @@ export class TelaCadastrosComponent implements OnInit {
   }
 
   async carregarCategorias() {
-  const { data, error } = await this.supabaseService.listarCategorias();
+    const { data, error } = await this.supabaseService.listarCategorias();
 
-  if (error) {
-    console.error('Erro ao carregar categorias:', error.message);
-    return;
+    if (error) {
+      console.error('Erro ao carregar categorias:', error.message);
+      return;
+    }
+
+    // Aqui pegamos só o campo DesCat, se for o que você quer exibir
+    this.categorias = (data ?? []).map((cat: any) => cat.DesCat);
   }
-
-  // Aqui pegamos só o campo DesCat, se for o que você quer exibir
-  this.categorias = (data ?? [] ).map((cat: any) => cat.DesCat);
-}
 }

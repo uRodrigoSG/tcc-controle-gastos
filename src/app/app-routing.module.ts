@@ -10,16 +10,12 @@ const routes: Routes = [
   {
     path: 'inicio',
     loadChildren: () =>
-      import('./modules/inicio/inicio.module').then(
-        (m) => m.InicioModule
-      ),
+      import('./modules/inicio/inicio.module').then((m) => m.InicioModule),
   },
   {
     path: 'login',
     loadChildren: () =>
-      import('./modules/login/login.module').then(
-        (m) => m.LoginModule
-      ),
+      import('./modules/login/login.module').then((m) => m.LoginModule),
   },
   {
     path: 'cadastro-user',
@@ -46,6 +42,6 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

@@ -4,28 +4,26 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
+  constructor(private router: Router) {}
 
-  constructor(private router: Router) { }
+  ngOnInit(): void {}
 
-  ngOnInit(): void {
-  }
-
-  irParaLogin(){
+  irParaLogin() {
     this.router.navigate(['/login']);
   }
 
-  irParaRegister(){
+  irParaRegister() {
     this.router.navigate(['/cadastro-user']);
   }
 
-  irParaCadastros(){
+  irParaCadastros() {
     this.router.navigate(['/cadastros']);
   }
 
-  irParaHistorico(){
+  irParaHistorico() {
     this.router.navigate(['/historico']);
   }
 }

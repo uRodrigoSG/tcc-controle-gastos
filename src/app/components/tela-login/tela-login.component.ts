@@ -6,10 +6,9 @@ import { SupabaseService } from 'src/app/services/supabase.service';
 @Component({
   selector: 'app-tela-login',
   templateUrl: './tela-login.component.html',
-  styleUrls: ['./tela-login.component.css']
+  styleUrls: ['./tela-login.component.css'],
 })
 export class TelaLoginComponent implements OnInit {
-
   loginForm!: FormGroup;
   logado: boolean = false;
 
@@ -40,7 +39,7 @@ export class TelaLoginComponent implements OnInit {
         alert('Erro ao fazer login: ' + error.message);
       }
     } else {
-      Object.values(this.loginForm.controls).forEach(control => {
+      Object.values(this.loginForm.controls).forEach((control) => {
         if (control.invalid) {
           control.markAsDirty();
           control.updateValueAndValidity({ onlySelf: true });

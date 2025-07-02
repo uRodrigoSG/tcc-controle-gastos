@@ -14,9 +14,7 @@ import { TelaTotaisComponent } from './components/tela-totais/tela-totais.compon
 registerLocaleData(pt);
 
 @NgModule({
-  declarations: [
-    AppComponent,
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -24,10 +22,8 @@ registerLocaleData(pt);
     HttpClientModule,
     BrowserAnimationsModule,
   ],
-  
-  providers: [
-    { provide: NZ_I18N, useValue: pt_BR }
-  ],
-  bootstrap: [AppComponent]
+
+  providers: [{ provide: NZ_I18N, useValue: pt_BR }],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

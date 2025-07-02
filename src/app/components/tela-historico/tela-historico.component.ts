@@ -6,15 +6,24 @@ import { SupabaseService } from 'src/app/services/supabase.service';
 @Component({
   selector: 'app-tela-historico',
   templateUrl: './tela-historico.component.html',
-  styleUrls: ['./tela-historico.component.css']
+  styleUrls: ['./tela-historico.component.css'],
 })
 export class TelaHistoricoComponent implements OnInit {
-
-  constructor() { }
+  constructor() {}
 
   gastos: Gasto[] = [
-    { data: '2025-06-10', categoria: 'Alimentação', item: 'Mercado', valor: 150 },
-    { data: '2025-06-15', categoria: 'Transporte', item: 'Gasolina', valor: 100 },
+    {
+      data: '2025-06-10',
+      categoria: 'Alimentação',
+      item: 'Mercado',
+      valor: 150,
+    },
+    {
+      data: '2025-06-15',
+      categoria: 'Transporte',
+      item: 'Gasolina',
+      valor: 100,
+    },
     { data: '2025-07-01', categoria: 'Lazer', item: 'Cinema', valor: 50 },
   ];
 
@@ -30,8 +39,7 @@ export class TelaHistoricoComponent implements OnInit {
   };
 
   ngOnInit(): void {
-      this.aplicarFiltros()// inicia com todos os gastos
-
+    this.aplicarFiltros(); // inicia com todos os gastos
   }
 
   aplicarFiltros(): void {
@@ -50,16 +58,19 @@ export class TelaHistoricoComponent implements OnInit {
           dataGasto.getFullYear() === this.filtros.mes?.getFullYear()
         : true;
 
-      const matchValor = this.filtros.valor !== null
-        ? this.filtros.tipoValor === 'maior'
-          ? g.valor > this.filtros.valor
-          : this.filtros.tipoValor === 'menor'
-          ? g.valor < this.filtros.valor
-          : g.valor === this.filtros.valor
-        : true;
+      const matchValor =
+        this.filtros.valor !== null
+          ? this.filtros.tipoValor === 'maior'
+            ? g.valor > this.filtros.valor
+            : this.filtros.tipoValor === 'menor'
+            ? g.valor < this.filtros.valor
+            : g.valor === this.filtros.valor
+          : true;
 
       const matchCategoria = this.filtros.categoria
-        ? g.categoria.toLowerCase().includes(this.filtros.categoria.toLowerCase())
+        ? g.categoria
+            .toLowerCase()
+            .includes(this.filtros.categoria.toLowerCase())
         : true;
 
       const matchItem = this.filtros.item
@@ -81,5 +92,4 @@ export class TelaHistoricoComponent implements OnInit {
     };
     this.aplicarFiltros();
   }
-
 }
