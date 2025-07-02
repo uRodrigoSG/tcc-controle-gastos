@@ -38,6 +38,8 @@ import { TelaCadastrosComponent } from '../components/tela-cadastros/tela-cadast
 import { TelaHistoricoComponent } from '../components/tela-historico/tela-historico.component';
 import { NzPaginationModule } from 'ng-zorro-antd/pagination';
 import { TelaTotaisComponent } from '../components/tela-totais/tela-totais.component';
+import { TelaInicioComponent } from '../components/tela-inicio/tela-inicio.component';
+import { DescRodapeComponent } from '../components/desc-rodape/desc-rodape.component';
 
 const NG_ZORRO_MODULES = [
   NzButtonModule,
@@ -77,6 +79,8 @@ const CUSTOM_COMPONENTS = [
   TelaCadastrosComponent,
   TelaHistoricoComponent,
   TelaTotaisComponent,
+  TelaInicioComponent,
+  DescRodapeComponent,
 ];
 
 @NgModule({

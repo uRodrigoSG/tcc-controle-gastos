@@ -1,0 +1,32 @@
+.info-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 16px;
+  background-color: #f0f2f5;
+}
+
+.info-card {
+  width: 100%;
+  max-width: 600px;
+  text-align: center;
+}
+
+.gear-container {
+  margin-top: 30px;
+}
+
+.gear-spin {
+  font-size: 64px;
+  color: #1890ff;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Gasto } from 'src/app/models/gastos-form.model';
+import { Gastos } from 'src/app/models/gastos-form.model';
 import { SupabaseService } from 'src/app/services/supabase.service';
 
 @Component({
@@ -11,24 +11,7 @@ import { SupabaseService } from 'src/app/services/supabase.service';
 export class TelaTotaisComponent implements OnInit {
   constructor() {}
 
-  gastos: Gasto[] = [
-    // Simule aqui seus gastos cadastrados
-    {
-      categoria: 'Alimentação',
-      item: 'Mercado',
-      valor: 500,
-      data: '2025-06-10',
-    },
-    {
-      categoria: 'Alimentação',
-      item: 'Restaurante',
-      valor: 300,
-      data: '2025-06-12',
-    },
-    { categoria: 'Transporte', item: 'Ônibus', valor: 200, data: '2025-06-10' },
-    { categoria: 'Transporte', item: 'Uber', valor: 150, data: '2025-05-15' },
-    { categoria: 'Lazer', item: 'Cinema', valor: 100, data: '2025-06-20' },
-  ];
+  gastos: Gastos[] = [];
 
   totaisPorCategoria: { categoria: string; total: number }[] = [];
   totaisPorItem: { item: string; total: number }[] = [];
@@ -52,7 +35,7 @@ export class TelaTotaisComponent implements OnInit {
     this.totalGastosNoMesAtual = 0;
 
     // Função para padronizar a chave mes/ano
-    function formatarMesAno(data: Date): string {
+    /*function formatarMesAno(data: Date): string {
       const mes = (data.getMonth() + 1).toString().padStart(2, '0');
       const ano = data.getFullYear();
       return `${mes}/${ano}`;
@@ -92,5 +75,6 @@ export class TelaTotaisComponent implements OnInit {
     this.totalGastosNoMesAtual = mapaMes.get(chaveMesAtual) || 0;
 
     console.log('Meta:', this.meta, 'Total gasto:', this.totalGastosNoMesAtual);
+  */
   }
 }

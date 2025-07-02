@@ -26,21 +26,19 @@ export class SupabaseService {
     // Pegar usuario para gravação na tabela de Categorias
     var CodUsu = this.getPerfilAtual().CodUsu;
 
-    const { data, error } = await this.supabase
-      .from('Itens')
-      .insert([
-        {
-          DatGas: gasto.DatGas,
-          CodCat: gasto.CodCat,
-          CodIte: gasto.CodIte,
-          CodUsu: CodUsu,
-          ValGas: gasto.ValGas,
-          CodMes: gasto.CodMes,
-        },
-      ]);
+    const { data, error } = await this.supabase.from('Gastos').insert([
+      {
+        DatGas: gasto.DatGas,
+        CodCat: gasto.CodCat,
+        CodIte: gasto.CodIte,
+        CodUsu: CodUsu,
+        ValGas: gasto.ValGas,
+        CodMes: gasto.CodMes,
+      },
+    ]);
 
     if (error) {
-      console.error('Erro ao inserir categoria:', error.message);
+      console.error('Erro ao inserir gastos:', error.message);
     }
 
     return { data, error };

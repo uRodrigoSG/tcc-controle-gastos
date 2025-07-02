@@ -41,7 +41,7 @@ export class TelaCadastrosComponent implements OnInit {
     this.carregarItens();
   }
 
-  opcaoSelecionada: 'categoria' | 'item' | 'gasto' = 'categoria';
+  opcaoSelecionada: 'gasto' | 'categoria' | 'item' = 'gasto';
 
   async salvarGastos() {
     if (
@@ -62,7 +62,7 @@ export class TelaCadastrosComponent implements OnInit {
     );
 
     if (error) {
-      alert('Erro ao salvar item: ' + error.message);
+      alert('Erro ao salvar gasto: ' + error.message);
       this.novoGasto = {
         CodGas: 0,
         DatGas: new Date(),
@@ -74,7 +74,7 @@ export class TelaCadastrosComponent implements OnInit {
       };
       return;
     } else {
-      alert('Item salvo com sucesso!');
+      alert('Gasto salvo com sucesso!');
       this.novoGasto = {
         CodGas: 0,
         DatGas: new Date(),
@@ -122,8 +122,12 @@ export class TelaCadastrosComponent implements OnInit {
       return;
     }
 
-    // Aqui pegamos só o campo DesCat, se for o que você quer exibir
-    this.itens = (data ?? []).map((cat: any) => cat.DesCat);
+    this.itens = (data ?? []).map((item: any) => ({
+      CodIte: item.CodIte,
+      DesIte: item.DesIte,
+      CodCat: item.CodCat,
+      CodUsu: item.CodUsu,
+    }));
   }
 
   async salvarCategoria() {

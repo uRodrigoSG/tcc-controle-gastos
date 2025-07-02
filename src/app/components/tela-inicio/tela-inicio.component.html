@@ -1,0 +1,24 @@
+<nz-layout>
+  <!-- Conteúdo principal -->
+  <nz-content class="login-container">
+    <!-- Seta animada no topo direito -->
+    <div class="arrow-indicator">
+      <span class="arrow">&#8599;</span>
+      <span class="arrow-msg">Faça seu registro ou login aqui</span>
+    </div>
+
+    <nz-card
+      [nzBordered]="true"
+      nzTitle="Acesso necessário"
+      class="message-box"
+    >
+      <p>
+        Para acessar qualquer funcionalidade do sistema, é necessário estar
+        logado.
+      </p>
+      <div class="gear-container">
+        <i nz-icon nzType="setting" nzTheme="outline" class="gear-spin"></i>
+      </div>
+    </nz-card>
+  </nz-content>
+</nz-layout>

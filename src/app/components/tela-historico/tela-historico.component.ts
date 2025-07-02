@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Gasto } from 'src/app/models/gastos-form.model';
+import { Gastos } from 'src/app/models/gastos-form.model';
 import { SupabaseService } from 'src/app/services/supabase.service';
 
 @Component({
@@ -11,23 +11,9 @@ import { SupabaseService } from 'src/app/services/supabase.service';
 export class TelaHistoricoComponent implements OnInit {
   constructor() {}
 
-  gastos: Gasto[] = [
-    {
-      data: '2025-06-10',
-      categoria: 'Alimentação',
-      item: 'Mercado',
-      valor: 150,
-    },
-    {
-      data: '2025-06-15',
-      categoria: 'Transporte',
-      item: 'Gasolina',
-      valor: 100,
-    },
-    { data: '2025-07-01', categoria: 'Lazer', item: 'Cinema', valor: 50 },
-  ];
+  gastos: Gastos[] = [];
 
-  gastosFiltrados: Gasto[] = [];
+  gastosFiltrados: Gastos[] = [];
 
   filtros = {
     data: null as Date | null,
@@ -43,7 +29,7 @@ export class TelaHistoricoComponent implements OnInit {
   }
 
   aplicarFiltros(): void {
-    this.gastosFiltrados = this.gastos.filter((g) => {
+    /*this.gastosFiltrados = this.gastos.filter((g) => {
       const dataGasto = new Date(g.data);
 
       const matchData = this.filtros.data
@@ -78,7 +64,7 @@ export class TelaHistoricoComponent implements OnInit {
         : true;
 
       return matchData && matchMes && matchValor && matchCategoria && matchItem;
-    });
+    });*/
   }
 
   limparFiltros(): void {

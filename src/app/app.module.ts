@@ -10,7 +10,8 @@ import pt from '@angular/common/locales/pt';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { TelaTotaisComponent } from './components/tela-totais/tela-totais.component';
+import { NZ_ICONS } from 'ng-zorro-antd/icon';
+import { SettingOutline } from '@ant-design/icons-angular/icons';
 registerLocaleData(pt);
 
 @NgModule({
@@ -23,7 +24,10 @@ registerLocaleData(pt);
     BrowserAnimationsModule,
   ],
 
-  providers: [{ provide: NZ_I18N, useValue: pt_BR }],
+  providers: [
+    { provide: NZ_I18N, useValue: pt_BR },
+    { provide: NZ_ICONS, useValue: [SettingOutline] },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

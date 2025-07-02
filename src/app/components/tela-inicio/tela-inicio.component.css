@@ -1,0 +1,73 @@
+.login-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+  margin-bottom: 40px;
+  position: relative;
+}
+
+.message-box {
+  width: 400px;
+  text-align: center;
+}
+
+.arrow-indicator {
+  position: absolute;
+  top: -40px;
+  right: 50px;
+  text-align: center;
+  animation: float 2s ease-in-out infinite;
+  z-index: 1000;
+}
+
+.arrow {
+  font-size: 32px;
+  color: #1890ff;
+  display: block;
+  animation: blink 1s infinite;
+}
+
+.arrow-msg {
+  font-size: 14px;
+  color: #1890ff;
+  font-weight: bold;
+}
+
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+.gear-container {
+  margin-top: 30px;
+}
+
+.gear-spin {
+  font-size: 64px;
+  color: #1890ff;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

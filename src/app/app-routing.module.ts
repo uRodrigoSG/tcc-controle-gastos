@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { DescRodapeComponent } from './components/desc-rodape/desc-rodape.component';
 
 const routes: Routes = [
   {
@@ -36,6 +37,13 @@ const routes: Routes = [
     loadChildren: () =>
       import('./modules/historico/historico.module').then(
         (m) => m.HistoricoModule
+      ),
+  },
+  {
+    path: 'descricao-rodape',
+    loadChildren: () =>
+      import('./modules/descricao-rodape/descricao-rodape.module').then(
+        (m) => m.DescricaoRodapeModule
       ),
   },
 ];

@@ -4,7 +4,7 @@
 }
 
 .custom-footer {
-  background: #f0f2f5;
+  background: #95cacc;
   padding: 20px 40px;
 }
 
@@ -28,11 +28,36 @@
 }
 
 .logo {
-  height: 40px;
+  margin-top: -30px;
+  max-height: 100px; /* ajuste conforme necessário */
+  height: auto;
   width: auto;
 }
 
 .site-title {
   font-weight: bold;
+  color: #262626;
   font-size: 18px;
+}
+
+.color-button {
+  color: #262626;
+  border: none;
+  border-bottom: 2px solid #262626;
+  border-radius: 0;
+  padding-bottom: 2px;
+}
+
+.color-button:hover {
+  background-color: #d8d7d7; /* azul clarinho do ng-zorro */
+}
+
+.button-login-register {
+  color: rgb(0, 0, 0);
+  background-color: #82a8b9;
+  border-color: #82a8b9;
+}
+
+.button-login-register:hover {
+  background-color: #d8d7d7; /* azul clarinho do ng-zorro */
 }
