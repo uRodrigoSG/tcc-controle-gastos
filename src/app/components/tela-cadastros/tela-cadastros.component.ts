@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Categoria } from 'src/app/models/categoria-form.model';
+import { Gastos } from 'src/app/models/gastos-form.model';
 import { Itens } from 'src/app/models/itens-form.model';
 import { SupabaseService } from 'src/app/services/supabase.service';
 
@@ -23,6 +24,16 @@ export class TelaCadastrosComponent implements OnInit {
     CodUsu: undefined,
   };
 
+  novoGasto: Gastos = {
+    CodGas: 0,
+    DatGas: new Date(),
+    CodCat: 0,
+    CodIte: 0,
+    CodUsu: 0,
+    ValGas: 0,
+    CodMes: 0,
+  };
+
   constructor(private supabaseService: SupabaseService) {}
 
   ngOnInit(): void {
@@ -32,7 +43,49 @@ export class TelaCadastrosComponent implements OnInit {
 
   opcaoSelecionada: 'categoria' | 'item' | 'gasto' = 'categoria';
 
-  novoGasto = { categoria: '', item: '', data: '', valor: null };
+  async salvarGastos() {
+    if (
+      !this.novoGasto.CodCat ||
+      !this.novoGasto.CodIte ||
+      !this.novoGasto.DatGas ||
+      !this.novoGasto.ValGas ||
+      !this.novoGasto.CodMes
+    ) {
+      alert(
+        'Categoria / Item / Data gasto / Valor do gato e Mes são obrigatórios'
+      );
+      return;
+    }
+
+    const { data, error } = await this.supabaseService.inserirGastos(
+      this.novoGasto
+    );
+
+    if (error) {
+      alert('Erro ao salvar item: ' + error.message);
+      this.novoGasto = {
+        CodGas: 0,
+        DatGas: new Date(),
+        CodCat: 0,
+        CodIte: 0,
+        CodUsu: 0,
+        ValGas: 0,
+        CodMes: 0,
+      };
+      return;
+    } else {
+      alert('Item salvo com sucesso!');
+      this.novoGasto = {
+        CodGas: 0,
+        DatGas: new Date(),
+        CodCat: 0,
+        CodIte: 0,
+        CodUsu: 0,
+        ValGas: 0,
+        CodMes: 0,
+      };
+    }
+  }
 
   async salvarItens() {
     if (!this.novoItem.DesIte || !this.novoItem.CodCat) {
@@ -47,7 +100,10 @@ export class TelaCadastrosComponent implements OnInit {
 
     if (error) {
       alert('Erro ao salvar item: ' + error.message);
-      this.categorias = [];
+      this.novaCategoria = {
+        CodCat: 0,
+        DesCat: '',
+      };
       return;
     } else {
       alert('Item salvo com sucesso!');

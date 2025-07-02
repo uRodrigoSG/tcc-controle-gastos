@@ -78,7 +78,7 @@
         <nz-form-control>
           <nz-select
             (nzOpenChange)="carregarCategorias()"
-            [(ngModel)]="novoGasto.categoria"
+            [(ngModel)]="novoGasto.CodCat"
             name="categoriaGasto"
             required
           >
@@ -96,7 +96,7 @@
         <nz-form-control>
           <nz-select
             (nzOpenChange)="carregarItens()"
-            [(ngModel)]="novoGasto.item"
+            [(ngModel)]="novoGasto.CodIte"
             name="itemGasto"
             required
           >
@@ -115,7 +115,7 @@
           <input
             nz-input
             type="date"
-            [(ngModel)]="novoGasto.data"
+            [(ngModel)]="novoGasto.DatGas"
             name="dataGasto"
             required
           />
@@ -129,10 +129,30 @@
             nz-input
             type="number"
             step="0.01"
-            [(ngModel)]="novoGasto.valor"
+            [(ngModel)]="novoGasto.ValGas"
             name="valorGasto"
             required
           />
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label>Mês</nz-form-label>
+        <nz-form-control>
+          <nz-select [(ngModel)]="novoGasto.CodMes" name="mesGasto" required>
+            <nz-option nzValue="1" nzLabel="Janeiro"></nz-option>
+            <nz-option nzValue="2" nzLabel="Fevereiro"></nz-option>
+            <nz-option nzValue="3" nzLabel="Março"></nz-option>
+            <nz-option nzValue="4" nzLabel="Abril"></nz-option>
+            <nz-option nzValue="5" nzLabel="Maio"></nz-option>
+            <nz-option nzValue="6" nzLabel="Junho"></nz-option>
+            <nz-option nzValue="7" nzLabel="Julho"></nz-option>
+            <nz-option nzValue="8" nzLabel="Agosto"></nz-option>
+            <nz-option nzValue="9" nzLabel="Setembro"></nz-option>
+            <nz-option nzValue="10" nzLabel="Outubro"></nz-option>
+            <nz-option nzValue="11" nzLabel="Novembro"></nz-option>
+            <nz-option nzValue="12" nzLabel="Dezembro"></nz-option>
+          </nz-select>
         </nz-form-control>
       </nz-form-item>
 
@@ -140,10 +160,11 @@
         nz-button
         nzType="primary"
         [disabled]="
-          !novoGasto.categoria ||
-          !novoGasto.item ||
-          !novoGasto.data ||
-          !novoGasto.valor
+          !this.novoGasto.CodCat ||
+          !this.novoGasto.CodIte ||
+          !this.novoGasto.DatGas ||
+          !this.novoGasto.ValGas ||
+          !this.novoGasto.CodMes
         "
       >
         Salvar Gasto

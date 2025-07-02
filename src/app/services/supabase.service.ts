@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
 import { BehaviorSubject } from 'rxjs';
+import { Gastos } from '../models/gastos-form.model';
 
 @Injectable({
   providedIn: 'root',
@@ -19,6 +20,30 @@ export class SupabaseService {
       'https://pqsmpzxmiaxlcwqbgqlc.supabase.co',
       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBxc21wenhtaWF4bGN3cWJncWxjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTEzODg4MTcsImV4cCI6MjA2Njk2NDgxN30.o-VQXnNn1GgAbeVzuvh4HPFUgNr9iZyYpx9S9mz8Ci0'
     );
+  }
+
+  async inserirGastos(gasto: Gastos) {
+    // Pegar usuario para gravação na tabela de Categorias
+    var CodUsu = this.getPerfilAtual().CodUsu;
+
+    const { data, error } = await this.supabase
+      .from('Itens')
+      .insert([
+        {
+          DatGas: gasto.DatGas,
+          CodCat: gasto.CodCat,
+          CodIte: gasto.CodIte,
+          CodUsu: CodUsu,
+          ValGas: gasto.ValGas,
+          CodMes: gasto.CodMes,
+        },
+      ]);
+
+    if (error) {
+      console.error('Erro ao inserir categoria:', error.message);
+    }
+
+    return { data, error };
   }
 
   async inserirCategoria(desCat: string) {

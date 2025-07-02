@@ -1,6 +1,9 @@
-export interface Gasto {
-  data: string;
-  categoria: string;
-  item: string;
-  valor: number;
+export interface Gastos {
+  CodGas: number;
+  DatGas: Date;
+  CodCat: number;
+  CodIte: number;
+  CodUsu: number;
+  ValGas: number;
+  CodMes: number;
 }
