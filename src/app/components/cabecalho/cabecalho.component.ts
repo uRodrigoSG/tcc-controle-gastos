@@ -31,12 +31,7 @@ export class CabecalhoComponent implements OnInit {
   }
 
   onClickRegister() {
-    if (this.estaLogado) {
-      this.irParaRegister.emit();
-    } else {
-      this.router.navigate(['/login']);
-      alert('Necessário fazer login. Verifique !!!');
-    }
+    this.irParaRegister.emit();
   }
 
   onClickCadastros() {

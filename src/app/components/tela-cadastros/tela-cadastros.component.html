@@ -5,7 +5,7 @@
     <label nz-radio-button nzValue="gasto">Gasto</label>
   </nz-radio-group>
 
-  <form (ngSubmit)="salvar()">
+  <form>
     <!-- Cadastro de Categoria -->
     <div *ngIf="opcaoSelecionada === 'categoria'" style="margin-top: 20px">
       <nz-form-item>
@@ -13,7 +13,7 @@
         <nz-form-control>
           <input
             nz-input
-            [(ngModel)]="novaCategoria"
+            [(ngModel)]="novaCategoria.DesCat"
             name="categoria"
             required
           />
@@ -22,7 +22,7 @@
       <button
         nz-button
         nzType="primary"
-        [disabled]="!novaCategoria"
+        [disabled]="!novaCategoria.DesCat"
         (click)="salvarCategoria()"
       >
         Salvar Categoria
@@ -36,7 +36,7 @@
         <nz-form-control>
           <input
             nz-input
-            [(ngModel)]="novoItem.descricao"
+            [(ngModel)]="novoItem.DesIte"
             name="descricaoItem"
             required
           />
@@ -47,14 +47,15 @@
         <nz-form-label>Categoria</nz-form-label>
         <nz-form-control>
           <nz-select
-            [(ngModel)]="novoItem.categoria"
+            (nzOpenChange)="carregarCategorias()"
+            [(ngModel)]="novoItem.CodCat"
             name="categoriaItem"
             required
           >
             <nz-option
               *ngFor="let cat of categorias"
-              [nzValue]="cat"
-              [nzLabel]="cat"
+              [nzValue]="cat.CodCat"
+              [nzLabel]="cat.DesCat"
             ></nz-option>
           </nz-select>
         </nz-form-control>
@@ -63,7 +64,8 @@
       <button
         nz-button
         nzType="primary"
-        [disabled]="!novoItem.descricao || !novoItem.categoria"
+        [disabled]="!novoItem.DesIte || !novoItem.CodCat"
+        (click)="salvarItens()"
       >
         Salvar Item
       </button>
@@ -75,14 +77,15 @@
         <nz-form-label>Categoria</nz-form-label>
         <nz-form-control>
           <nz-select
+            (nzOpenChange)="carregarCategorias()"
             [(ngModel)]="novoGasto.categoria"
             name="categoriaGasto"
             required
           >
             <nz-option
               *ngFor="let cat of categorias"
-              [nzValue]="cat"
-              [nzLabel]="cat"
+              [nzValue]="cat.CodCat"
+              [nzLabel]="cat.DesCat"
             ></nz-option>
           </nz-select>
         </nz-form-control>
@@ -91,18 +94,23 @@
       <nz-form-item>
         <nz-form-label>Item</nz-form-label>
         <nz-form-control>
-          <nz-select [(ngModel)]="novoGasto.item" name="itemGasto" required>
+          <nz-select
+            (nzOpenChange)="carregarItens()"
+            [(ngModel)]="novoGasto.item"
+            name="itemGasto"
+            required
+          >
             <nz-option
               *ngFor="let item of itens"
-              [nzValue]="item.descricao"
-              [nzLabel]="item.descricao"
+              [nzValue]="item.CodIte"
+              [nzLabel]="item.DesIte"
             ></nz-option>
           </nz-select>
         </nz-form-control>
       </nz-form-item>
 
       <nz-form-item>
-        <nz-form-label>Data</nz-form-label>
+        <nz-form-label>Data do Gasto</nz-form-label>
         <nz-form-control>
           <input
             nz-input
@@ -115,7 +123,7 @@
       </nz-form-item>
 
       <nz-form-item>
-        <nz-form-label>Valor (R$)</nz-form-label>
+        <nz-form-label>Valor do Gasto (R$)</nz-form-label>
         <nz-form-control>
           <input
             nz-input

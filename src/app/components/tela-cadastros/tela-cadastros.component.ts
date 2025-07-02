@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Categoria } from 'src/app/models/categoria-form.model';
+import { Itens } from 'src/app/models/itens-form.model';
 import { SupabaseService } from 'src/app/services/supabase.service';
 
 @Component({
@@ -8,53 +10,89 @@ import { SupabaseService } from 'src/app/services/supabase.service';
   styleUrls: ['./tela-cadastros.component.css'],
 })
 export class TelaCadastrosComponent implements OnInit {
-  novaCategoria: string = '';
-  categorias: string[] = [];
+  novaCategoria: Categoria = {
+    CodCat: 0,
+    DesCat: '',
+  };
+  categorias: Categoria[] = [];
+  itens: Itens[] = [];
+  novoItem: Itens = {
+    CodIte: 0,
+    DesIte: '',
+    CodCat: 0,
+    CodUsu: undefined,
+  };
 
   constructor(private supabaseService: SupabaseService) {}
 
   ngOnInit(): void {
     this.carregarCategorias();
+    this.carregarItens();
   }
 
   opcaoSelecionada: 'categoria' | 'item' | 'gasto' = 'categoria';
 
-  itens: { descricao: string; categoria: string }[] = [];
-
-  novoItem = { descricao: '', categoria: '' };
   novoGasto = { categoria: '', item: '', data: '', valor: null };
 
-  salvar() {
-    if (this.opcaoSelecionada === 'categoria') {
-      this.categorias.push(this.novaCategoria);
-      this.novaCategoria = '';
-    } else if (this.opcaoSelecionada === 'item') {
-      this.itens.push({ ...this.novoItem });
-      this.novoItem = { descricao: '', categoria: '' };
-    } else if (this.opcaoSelecionada === 'gasto') {
-      console.log('Gasto salvo:', this.novoGasto);
-      // Aqui você pode chamar uma API para salvar o gasto
-      this.novoGasto = { categoria: '', item: '', data: '', valor: null };
+  async salvarItens() {
+    if (!this.novoItem.DesIte || !this.novoItem.CodCat) {
+      alert('Descrição e Categoria são obrigatórios');
+      return;
+    }
+
+    const { data, error } = await this.supabaseService.inserirItem(
+      this.novoItem.CodCat,
+      this.novoItem.DesIte
+    );
+
+    if (error) {
+      alert('Erro ao salvar item: ' + error.message);
+      this.categorias = [];
+      return;
+    } else {
+      alert('Item salvo com sucesso!');
+      this.novaCategoria = {
+        CodCat: 0,
+        DesCat: '',
+      };
     }
   }
 
+  async carregarItens() {
+    const { data, error } = await this.supabaseService.listarItens();
+
+    if (error) {
+      console.error('Erro ao carregar itens:', error.message);
+      return;
+    }
+
+    // Aqui pegamos só o campo DesCat, se for o que você quer exibir
+    this.itens = (data ?? []).map((cat: any) => cat.DesCat);
+  }
+
   async salvarCategoria() {
-    if (!this.novaCategoria.trim()) {
+    if (!this.novaCategoria.DesCat) {
       alert('Descrição é obrigatória');
       return;
     }
 
     const { data, error } = await this.supabaseService.inserirCategoria(
-      this.novaCategoria
+      this.novaCategoria.DesCat
     );
 
     if (error) {
       alert('Erro ao salvar categoria: ' + error.message);
-      this.categorias = [];
+      this.novaCategoria = {
+        CodCat: 0,
+        DesCat: '',
+      };
       return;
     } else {
       alert('Categoria salva com sucesso!');
-      this.novaCategoria = '';
+      this.novaCategoria = {
+        CodCat: 0,
+        DesCat: '',
+      };
     }
   }
 
@@ -67,6 +105,9 @@ export class TelaCadastrosComponent implements OnInit {
     }
 
     // Aqui pegamos só o campo DesCat, se for o que você quer exibir
-    this.categorias = (data ?? []).map((cat: any) => cat.DesCat);
+    this.categorias = (data ?? []).map((cat: any) => ({
+      CodCat: cat.CodCat,
+      DesCat: cat.DesCat,
+    }));
   }
 }

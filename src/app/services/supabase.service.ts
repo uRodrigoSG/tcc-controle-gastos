@@ -27,7 +27,7 @@ export class SupabaseService {
 
     const { data, error } = await this.supabase
       .from('Categorias')
-      .insert([{ DesCat: desCat }, { CodUsu: CodUsu }]);
+      .insert([{ DesCat: desCat, CodUsu: CodUsu }]);
 
     if (error) {
       console.error('Erro ao inserir categoria:', error.message);
@@ -37,9 +37,36 @@ export class SupabaseService {
   }
 
   async listarCategorias() {
+    var CodUsu = this.getPerfilAtual().CodUsu;
     const { data, error } = await this.supabase
       .from('Categorias')
-      .select('CodCat,DesCat');
+      .select('CodCat,DesCat')
+      .eq('CodUsu', CodUsu);
+
+    return { data, error };
+  }
+
+  async inserirItem(codCat: number, desIte: string) {
+    // Pegar usuario para gravação na tabela de Categorias
+    var CodUsu = this.getPerfilAtual().CodUsu;
+
+    const { data, error } = await this.supabase
+      .from('Itens')
+      .insert([{ DesIte: desIte, CodCat: codCat, CodUsu: CodUsu }]);
+
+    if (error) {
+      console.error('Erro ao inserir categoria:', error.message);
+    }
+
+    return { data, error };
+  }
+
+  async listarItens() {
+    var CodUsu = this.getPerfilAtual().CodUsu;
+    const { data, error } = await this.supabase
+      .from('Itens')
+      .select('CodIte,DesIte')
+      .eq('CodUsu', CodUsu);
 
     return { data, error };
   }
