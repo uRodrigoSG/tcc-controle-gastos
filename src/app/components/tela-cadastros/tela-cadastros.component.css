@@ -1,18 +1,42 @@
 nz-card {
-  margin: 20px auto;
   max-width: 800px;
-}
-
-nz-form-item {
-  margin-bottom: 16px;
-}
-
-button[nz-button] {
-  margin-top: 10px;
+  margin: 40px auto;
+  padding: 24px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  border-radius: 12px;
+  background-color: #ffffff;
 }
 
 nz-radio-group {
-  margin-bottom: 24px;
   display: flex;
   gap: 16px;
+  margin-bottom: 24px;
+}
+
+nz-form-item {
+  margin-bottom: 20px;
+}
+
+nz-form-label {
+  font-weight: 600;
+  font-size: 15px;
+  color: #333;
+}
+
+input[nz-input],
+nz-select {
+  width: 100%;
+}
+
+button[nz-button] {
+  margin-top: 12px;
+  width: 100%;
+}
+
+form > div {
+  padding: 12px;
+  background-color: #fafafa;
+  border-radius: 8px;
+  margin-bottom: 24px;
+  border: 1px solid #e8e8e8;
 }
