@@ -25,4 +25,28 @@ export class AppComponent {
       this.router.navigate(['/inicio']);
     }
   }
+
+  irParaLogin() {
+    this.router.navigate(['/login']);
+  }
+
+  irParaRegister() {
+    this.router.navigate(['/cadastro-user']);
+  }
+
+  irParaCadastros() {
+    this.router.navigate(['/cadastros']);
+  }
+
+  irParaHistorico() {
+    this.router.navigate(['/historico']);
+  }
+
+  irParaTotais() {
+    this.router.navigate(['/inicio']);
+  }
+
+  irParaExcluir() {
+    this.router.navigate(['/exclusao-cadastros']);
+  }
 }

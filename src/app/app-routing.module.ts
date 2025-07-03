@@ -46,6 +46,13 @@ const routes: Routes = [
         (m) => m.DescricaoRodapeModule
       ),
   },
+  {
+    path: 'exclusao-cadastros',
+    loadChildren: () =>
+      import('./modules/exclusao-cadastros/exclusao-cadastros.module').then(
+        (m) => m.ExclusaoCadastrosModule
+      ),
+  },
 ];
 
 @NgModule({

@@ -10,30 +10,11 @@ import { SupabaseService } from 'src/app/services/supabase.service';
 export class InicioComponent implements OnInit {
   estaLogado = false;
 
-  constructor(
-    private supabaseService: SupabaseService,
-    private router: Router
-  ) {}
+  constructor(private supabaseService: SupabaseService) {}
 
   ngOnInit(): void {
     this.supabaseService.logado$.subscribe((logado) => {
       this.estaLogado = logado;
     });
-  }
-
-  irParaLogin() {
-    this.router.navigate(['/login']);
-  }
-
-  irParaRegister() {
-    this.router.navigate(['/cadastro-user']);
-  }
-
-  irParaCadastros() {
-    this.router.navigate(['/cadastros']);
-  }
-
-  irParaHistorico() {
-    this.router.navigate(['/historico']);
   }
 }

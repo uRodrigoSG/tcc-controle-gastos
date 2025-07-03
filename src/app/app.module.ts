@@ -12,6 +12,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NZ_ICONS } from 'ng-zorro-antd/icon';
 import { SettingOutline } from '@ant-design/icons-angular/icons';
+import { SharedModule } from './shared/shared.module';
+import { TelaExclusaoComponent } from './components/tela-exclusao/tela-exclusao.component';
 registerLocaleData(pt);
 
 @NgModule({
@@ -22,6 +24,7 @@ registerLocaleData(pt);
     FormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    SharedModule,
   ],
 
   providers: [

@@ -12,6 +12,8 @@ export class CabecalhoComponent implements OnInit {
   @Output() irParaRegister = new EventEmitter();
   @Output() irParaCadastros = new EventEmitter();
   @Output() irParaHistorico = new EventEmitter();
+  @Output() irParaTotais = new EventEmitter();
+  @Output() irParaExcluir = new EventEmitter();
 
   estaLogado = false;
 
@@ -32,6 +34,24 @@ export class CabecalhoComponent implements OnInit {
 
   onClickRegister() {
     this.irParaRegister.emit();
+  }
+
+  onClickTotais() {
+    if (this.estaLogado) {
+      this.irParaTotais.emit();
+    } else {
+      this.router.navigate(['/login']);
+      alert('Necessário fazer login. Verifique !!!');
+    }
+  }
+
+  onClickExcluir() {
+    if (this.estaLogado) {
+      this.irParaExcluir.emit();
+    } else {
+      this.router.navigate(['/login']);
+      alert('Necessário fazer login. Verifique !!!');
+    }
   }
 
   onClickCadastros() {

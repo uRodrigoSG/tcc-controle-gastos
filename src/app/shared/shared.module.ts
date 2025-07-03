@@ -40,6 +40,7 @@ import { NzPaginationModule } from 'ng-zorro-antd/pagination';
 import { TelaTotaisComponent } from '../components/tela-totais/tela-totais.component';
 import { TelaInicioComponent } from '../components/tela-inicio/tela-inicio.component';
 import { DescRodapeComponent } from '../components/desc-rodape/desc-rodape.component';
+import { TelaExclusaoComponent } from '../components/tela-exclusao/tela-exclusao.component';
 
 const NG_ZORRO_MODULES = [
   NzButtonModule,
@@ -81,6 +82,7 @@ const CUSTOM_COMPONENTS = [
   TelaTotaisComponent,
   TelaInicioComponent,
   DescRodapeComponent,
+  TelaExclusaoComponent,
 ];
 
 @NgModule({

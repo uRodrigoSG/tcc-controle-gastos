@@ -6,7 +6,14 @@
           <img src="assets/logoIOL.png" alt="Logo" class="logo" />
           <span class="site-title">Index Of Life</span>
         </a>
-        <button nz-button nzType="link" class="color-button">Totais</button>
+        <button
+          nz-button
+          nzType="link"
+          class="color-button"
+          (click)="onClickTotais()"
+        >
+          Totais
+        </button>
         <button
           nz-button
           nzType="link"
@@ -24,7 +31,12 @@
           Consulta de Gastos
         </button>
 
-        <button nz-button nzType="link" class="color-button">
+        <button
+          nz-button
+          nzType="link"
+          class="color-button"
+          (click)="onClickExcluir()"
+        >
           Exclusão de Cadastros
         </button>
       </div>
