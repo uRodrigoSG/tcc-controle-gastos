@@ -41,8 +41,6 @@ export class TelaTotaisComponent implements OnInit {
       DesMes: gasto.Meses?.DesMes,
     }));
 
-    console.log(this.gastos);
-
     this.calcularTotais();
   }
 
