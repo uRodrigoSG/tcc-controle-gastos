@@ -164,7 +164,6 @@ export class SupabaseService {
     });
   }
 
-  // 🔑 LOGIN
   async login(email: string, senha: string): Promise<any> {
     const { data, error } = await this.supabase.auth.signInWithPassword({
       email,
@@ -194,15 +193,14 @@ export class SupabaseService {
 
     const usuario = perfil[0];
     this.perfilUsuarioSubject.next(usuario);
-    this.logadoSubject.next(true); // ✅ marca como logado
+    this.logadoSubject.next(true);
     return usuario;
   }
 
-  // 🔓 LOGOUT
   async logout(): Promise<void> {
     await this.supabase.auth.signOut();
     this.perfilUsuarioSubject.next(null);
-    this.logadoSubject.next(false); // ❌ deslogado
+    this.logadoSubject.next(false);
   }
 
   getPerfilAtual(): any {
@@ -211,5 +209,35 @@ export class SupabaseService {
 
   getLogadoAtual(): boolean {
     return this.logadoSubject.getValue();
+  }
+
+  async excluirCategoria(codCat: number) {
+    var CodUsu = this.getPerfilAtual().CodUsu;
+    const { error } = await this.supabase
+      .from('Categorias')
+      .delete()
+      .eq('CodCat', codCat)
+      .eq('CodUsu', CodUsu);
+    return error;
+  }
+
+  async excluirItem(codIte: number) {
+    var CodUsu = this.getPerfilAtual().CodUsu;
+    const { error } = await this.supabase
+      .from('Itens')
+      .delete()
+      .eq('CodIte', codIte)
+      .eq('CodUsu', CodUsu);
+    return error;
+  }
+
+  async excluirGasto(codGas: number) {
+    var CodUsu = this.getPerfilAtual().CodUsu;
+    const { error } = await this.supabase
+      .from('Gastos')
+      .delete()
+      .eq('CodGas', codGas)
+      .eq('CodUsu', CodUsu);
+    return error;
   }
 }

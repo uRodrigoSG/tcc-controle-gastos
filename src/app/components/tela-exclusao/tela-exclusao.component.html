@@ -1,12 +1,57 @@
-<form>
+<div class="alert-container" style="margin-bottom: 16px">
+  <nz-alert
+    *ngIf="mensagemSucesso"
+    [nzType]="'success'"
+    [nzMessage]="mensagemSucesso"
+    nzShowIcon
+    nzClosable
+    (nzOnClose)="mensagemSucesso = ''"
+  ></nz-alert>
+
+  <nz-alert
+    *ngIf="mensagemErro"
+    [nzType]="'error'"
+    [nzMessage]="mensagemErro"
+    nzShowIcon
+    nzClosable
+    (nzOnClose)="mensagemErro = ''"
+  ></nz-alert>
+</div>
+
+<form class="form-formater" [formGroup]="formConsulta">
+  <nz-row
+    ><nz-col [nzSpan]="6">
+      <nz-form-item>
+        <nz-form-label>Mês do lançamento</nz-form-label>
+        <nz-form-control>
+          <nz-select
+            formControlName="mesConsulta"
+            nzPlaceHolder="Selecione o mês"
+          >
+            <nz-option nzValue="1" nzLabel="Janeiro"></nz-option>
+            <nz-option nzValue="2" nzLabel="Fevereiro"></nz-option>
+            <nz-option nzValue="3" nzLabel="Março"></nz-option>
+            <nz-option nzValue="4" nzLabel="Abril"></nz-option>
+            <nz-option nzValue="5" nzLabel="Maio"></nz-option>
+            <nz-option nzValue="6" nzLabel="Junho"></nz-option>
+            <nz-option nzValue="7" nzLabel="Julho"></nz-option>
+            <nz-option nzValue="8" nzLabel="Agosto"></nz-option>
+            <nz-option nzValue="9" nzLabel="Setembro"></nz-option>
+            <nz-option nzValue="10" nzLabel="Outubro"></nz-option>
+            <nz-option nzValue="11" nzLabel="Novembro"></nz-option>
+            <nz-option nzValue="12" nzLabel="Dezembro"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item> </nz-col
+  ></nz-row>
   <nz-row>
     <nz-col [nzSpan]="12">
       <nz-form-item>
         <nz-form-label>Categoria</nz-form-label>
         <nz-form-control>
           <nz-select
-            [(ngModel)]="categoriaSelecionada"
-            name="categoriaSelecionada"
+            formControlName="categoriaSelecionada"
+            nzPlaceHolder="Selecione uma categoria"
             (nzOpenChange)="carregarCategorias()"
           >
             <nz-option
@@ -17,17 +62,26 @@
           </nz-select>
         </nz-form-control>
       </nz-form-item>
+      <button
+        nz-button
+        nzType="primary"
+        (click)="excluirCategoria()"
+        [disabled]="!formConsulta.get('categoriaSelecionada')?.value"
+        style="margin-top: 8px"
+      >
+        Excluir Categoria
+      </button>
     </nz-col>
   </nz-row>
 
-  <nz-row>
+  <nz-row style="margin-top: 24px">
     <nz-col [nzSpan]="12">
       <nz-form-item>
         <nz-form-label>Item</nz-form-label>
         <nz-form-control>
           <nz-select
-            [(ngModel)]="itemSelecionado"
-            name="itemSelecionado"
+            formControlName="itemSelecionado"
+            nzPlaceHolder="Selecione um item"
             (nzOpenChange)="carregarItens()"
           >
             <nz-option
@@ -38,48 +92,58 @@
           </nz-select>
         </nz-form-control>
       </nz-form-item>
+      <button
+        nz-button
+        nzType="primary"
+        (click)="excluirItem()"
+        [disabled]="!formConsulta.get('itemSelecionado')?.value"
+        style="margin-top: 8px"
+      >
+        Excluir Item
+      </button>
     </nz-col>
   </nz-row>
 
-  <nz-row>
-    <nz-col [nzSpan]="6">
-      <label>Mês do lançamento</label>
-      <nz-select formControlName="mesConsulta" nzPlaceHolder="Selecione o mês">
-        <nz-option nzValue="1" nzLabel="Janeiro"></nz-option>
-        <nz-option nzValue="2" nzLabel="Fevereiro"></nz-option>
-        <nz-option nzValue="3" nzLabel="Março"></nz-option>
-        <nz-option nzValue="4" nzLabel="Abril"></nz-option>
-        <nz-option nzValue="5" nzLabel="Maio"></nz-option>
-        <nz-option nzValue="6" nzLabel="Junho"></nz-option>
-        <nz-option nzValue="7" nzLabel="Julho"></nz-option>
-        <nz-option nzValue="8" nzLabel="Agosto"></nz-option>
-        <nz-option nzValue="9" nzLabel="Setembro"></nz-option>
-        <nz-option nzValue="10" nzLabel="Outubro"></nz-option>
-        <nz-option nzValue="11" nzLabel="Novembro"></nz-option>
-        <nz-option nzValue="12" nzLabel="Dezembro"></nz-option>
-      </nz-select>
-    </nz-col>
-
-    <nz-col *ngIf="gastosLista.length > 0" [nzSpan]="12">
+  <nz-row style="margin-top: 24px">
+    <nz-col [nzSpan]="12" *ngIf="formConsulta.get('mesConsulta')?.value">
       <nz-form-item>
         <nz-form-label>Lançamentos</nz-form-label>
         <nz-form-control>
-          <nz-select [(ngModel)]="gastoSelecionado" name="gastoSelecionado">
+          <nz-select
+            formControlName="gastoSelecionado"
+            nzPlaceHolder="Selecione um lançamento"
+            (nzOpenChange)="
+              carregarGastos(formConsulta.get('mesConsulta')?.value)
+            "
+          >
             <nz-option
               *ngFor="let g of gastosLista"
               [nzValue]="g.CodGas"
               [nzLabel]="
                 'ID: ' +
                 g.CodGas +
+                ' - Data: ' +
+                g.DatGas +
                 ' - Item: ' +
                 g.DesIte +
-                ' - Cat: ' +
-                g.DesCat
+                ' - Categoria ' +
+                g.DesCat +
+                ' - Valor: ' +
+                g.ValGas
               "
             ></nz-option>
           </nz-select>
         </nz-form-control>
       </nz-form-item>
+      <button
+        nz-button
+        nzType="primary"
+        (click)="excluirGasto()"
+        [disabled]="!formConsulta.get('gastoSelecionado')?.value"
+        style="margin-top: 8px"
+      >
+        Excluir Lançamento
+      </button>
     </nz-col>
   </nz-row>
 </form>

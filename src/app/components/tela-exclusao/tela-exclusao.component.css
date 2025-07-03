@@ -1,0 +1,51 @@
+.form-formater {
+  padding: 24px;
+  background-color: #f9f9f9;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  max-width: 900px;
+  margin-left: 24px;
+  margin-right: auto;
+}
+
+nz-row {
+  margin-bottom: 20px;
+}
+
+nz-form-label {
+  font-weight: 600;
+  font-size: 14px;
+  color: #333;
+}
+
+nz-form-control {
+  width: 100%;
+}
+
+nz-select {
+  width: 100%;
+}
+
+label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+@media (max-width: 768px) {
+  .form-formater {
+    padding: 16px;
+  }
+
+  nz-col[nzSpan] {
+    width: 100% !important;
+  }
+
+  nz-row {
+    flex-direction: column;
+  }
+}
+
+button {
+  margin-top: 8px;
+}
