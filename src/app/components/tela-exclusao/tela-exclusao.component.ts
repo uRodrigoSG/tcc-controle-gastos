@@ -33,7 +33,6 @@ export class TelaExclusaoComponent implements OnInit {
       gastoSelecionado: [null],
     });
 
-    // dispara carregamento de gastos quando o mês for selecionado
     this.formConsulta.get('mesConsulta')?.valueChanges.subscribe((mes) => {
       if (mes) {
         this.carregarGastos(mes);

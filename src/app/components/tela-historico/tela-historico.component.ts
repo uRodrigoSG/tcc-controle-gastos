@@ -14,7 +14,6 @@ export class TelaHistoricoComponent implements OnInit {
   displayData: Gastos[] = [];
   form!: FormGroup;
 
-  // Mapa para guardar o estado da ordenação de cada coluna (ascend, descend, null)
   sortMap: { [key: string]: string | null } = {
     CodGas: null,
     DatGas: null,
@@ -24,7 +23,6 @@ export class TelaHistoricoComponent implements OnInit {
     DesMes: null,
   };
 
-  // Guarda qual coluna está ordenada atualmente, só uma ordenação simples
   sortKey: string | null = null;
   sortValue: string | null = null;
 
@@ -81,7 +79,6 @@ export class TelaHistoricoComponent implements OnInit {
 
     this.resetSortMap();
 
-    // Converte para keyof Gastos
     const key = s.key as keyof Gastos;
     const value = s.value;
 
@@ -89,7 +86,6 @@ export class TelaHistoricoComponent implements OnInit {
     this.sortValue = value;
     this.sortMap[s.key] = value;
 
-    // Se sortValue ou sortKey for null, reseta a tabela e retorna
     if (!value || !key) {
       this.displayData = [...this.gastos];
       return;

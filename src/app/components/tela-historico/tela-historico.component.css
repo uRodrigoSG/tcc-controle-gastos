@@ -67,7 +67,6 @@ nz-table tbody tr:nth-child(even) {
   color: white;
 }
 
-/* Placeholder dos filtros (inputs/selects) para alinhamento */
 .filter-row {
   display: flex;
   gap: 15px;
@@ -81,12 +80,10 @@ nz-table tbody tr:nth-child(even) {
   width: 180px;
 }
 
-/* Ajuste para campo de valor */
 input[type="number"] {
   max-width: 100px;
 }
 
-/* Scroll horizontal para tabelas largas */
 .table-wrapper {
   overflow-x: auto;
 }

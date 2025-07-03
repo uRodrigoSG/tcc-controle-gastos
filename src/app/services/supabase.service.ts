@@ -23,7 +23,6 @@ export class SupabaseService {
   }
 
   async inserirGastos(gasto: Gastos) {
-    // Pegar usuario para gravação na tabela de Categorias
     var CodUsu = this.getPerfilAtual().CodUsu;
 
     const { data, error } = await this.supabase.from('Gastos').insert([
@@ -104,7 +103,6 @@ export class SupabaseService {
   }
 
   async inserirCategoria(desCat: string) {
-    // Pegar usuario para gravação na tabela de Categorias
     var CodUsu = this.getPerfilAtual().CodUsu;
 
     const { data, error } = await this.supabase
@@ -129,7 +127,6 @@ export class SupabaseService {
   }
 
   async inserirItem(codCat: number, desIte: string) {
-    // Pegar usuario para gravação na tabela de Categorias
     var CodUsu = this.getPerfilAtual().CodUsu;
 
     const { data, error } = await this.supabase
@@ -171,7 +168,7 @@ export class SupabaseService {
     });
 
     if (error) {
-      this.logadoSubject.next(false); // garante false
+      this.logadoSubject.next(false);
       throw new Error(error.message);
     }
 

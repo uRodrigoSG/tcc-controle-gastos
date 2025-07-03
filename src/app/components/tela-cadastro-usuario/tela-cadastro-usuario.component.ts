@@ -41,15 +41,12 @@ export class TelaCadastroUsuarioComponent implements OnInit {
       this.carregando = true;
       const { nomeCompleto, email, senha } = this.cadastroForm.value;
 
-      // Cadastro no Supabase Auth
       const { data, error } = await this.supabaseService.signUp(email, senha);
       if (error) {
         alert('Erro ao cadastrar: ' + error.message);
         this.carregando = false;
         return;
       }
-
-      // Salva dados adicionais na tabela 'Usuario'
       const userId = data.user?.id;
       await this.supabaseService.salvarUsuario(userId!, nomeCompleto);
 

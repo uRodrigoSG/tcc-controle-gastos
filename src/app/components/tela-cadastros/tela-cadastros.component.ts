@@ -164,7 +164,6 @@ export class TelaCadastrosComponent implements OnInit {
       return;
     }
 
-    // Aqui pegamos só o campo DesCat, se for o que você quer exibir
     this.categorias = (data ?? []).map((cat: any) => ({
       CodCat: cat.CodCat,
       DesCat: cat.DesCat,
