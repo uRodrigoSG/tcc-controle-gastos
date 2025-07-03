@@ -3,9 +3,16 @@
   justify-content: center;
   align-items: center;
   background: #f0f2f5;
+  max-width: 600px;
+  margin: 0 auto;
 }
 
 .cadastro-card {
   margin-bottom: 40px;
   margin-top: 40px;
+}
+
+.nz-form-label {
+  white-space: normal !important;
+  word-wrap: break-word;
 }
