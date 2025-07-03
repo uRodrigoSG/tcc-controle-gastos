@@ -5,18 +5,33 @@
       <span class="arrow-msg">Faça seu registro ou login aqui</span>
     </div>
 
-    <nz-card
-      [nzBordered]="true"
-      nzTitle="Acesso necessário"
-      class="message-box"
-    >
-      <p>
-        Para acessar qualquer funcionalidade do sistema, é necessário estar
-        logado.
-      </p>
-      <div class="gear-container">
-        <i nz-icon nzType="setting" nzTheme="outline" class="gear-spin"></i>
-      </div>
-    </nz-card>
+    <div class="cards-container">
+      <nz-card
+        [nzBordered]="true"
+        nzTitle="Acesso necessário"
+        class="message-box"
+      >
+        <p>
+          Para acessar qualquer funcionalidade do sistema, é necessário estar
+          logado.
+        </p>
+        <div class="gear-container">
+          <i nz-icon nzType="setting" nzTheme="outline" class="gear-spin"></i>
+        </div>
+      </nz-card>
+
+      <nz-card
+        [nzBordered]="true"
+        nzTitle="Objetivo do Projeto"
+        class="message-box"
+      >
+        <p>
+          Este sistema foi desenvolvido com o propósito de facilitar o registro
+          e acompanhamento de despesas mensais pessoais. Ao organizar os gastos
+          por categorias e itens, o usuário obtém uma visão mais clara sobre
+          seus hábitos financeiros, permitindo melhor controle e planejamento.
+        </p>
+      </nz-card>
+    </div>
   </nz-content>
 </nz-layout>
