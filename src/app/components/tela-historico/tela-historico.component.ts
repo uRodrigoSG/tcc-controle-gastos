@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Gastos } from 'src/app/models/gastos-form.model';
 import { SupabaseService } from 'src/app/services/supabase.service';
 
@@ -9,73 +9,106 @@ import { SupabaseService } from 'src/app/services/supabase.service';
   styleUrls: ['./tela-historico.component.css'],
 })
 export class TelaHistoricoComponent implements OnInit {
-  constructor() {}
-
+  mesConsulta: number = 0;
   gastos: Gastos[] = [];
+  displayData: Gastos[] = [];
+  form!: FormGroup;
 
-  gastosFiltrados: Gastos[] = [];
-
-  filtros = {
-    data: null as Date | null,
-    mes: null as Date | null,
-    valor: null as number | null,
-    tipoValor: 'igual', // 'igual', 'maior', 'menor'
-    categoria: '',
-    item: '',
+  // Mapa para guardar o estado da ordenação de cada coluna (ascend, descend, null)
+  sortMap: { [key: string]: string | null } = {
+    CodGas: null,
+    DatGas: null,
+    DesCat: null,
+    DesIte: null,
+    ValGas: null,
+    DesMes: null,
   };
 
+  // Guarda qual coluna está ordenada atualmente, só uma ordenação simples
+  sortKey: string | null = null;
+  sortValue: string | null = null;
+
+  constructor(
+    private supabaseService: SupabaseService,
+    private fb: FormBuilder
+  ) {}
+
   ngOnInit(): void {
-    this.aplicarFiltros(); // inicia com todos os gastos
+    this.form = this.fb.group({
+      mesConsulta: [null, [Validators.required]],
+    });
   }
 
-  aplicarFiltros(): void {
-    /*this.gastosFiltrados = this.gastos.filter((g) => {
-      const dataGasto = new Date(g.data);
+  async listarGastos() {
+    const { data, error } = await this.supabaseService.listarGastos(
+      this.form.value.mesConsulta
+    );
 
-      const matchData = this.filtros.data
-        ? dataGasto.toDateString() === this.filtros.data.toDateString()
-        : true;
+    if (error) {
+      console.error('Erro ao carregar gastos:', error.message);
+      return;
+    }
 
-      const filtroMesValido =
-        this.filtros.mes instanceof Date && !isNaN(this.filtros.mes.getTime());
+    this.gastos = (data ?? []).map((gasto: any) => ({
+      CodGas: gasto.CodGas,
+      DatGas: gasto.DatGas,
+      CodCat: gasto.Categorias?.CodCat,
+      DesCat: gasto.Categorias?.DesCat,
+      CodIte: gasto.Itens?.CodIte,
+      DesIte: gasto.Itens?.DesIte,
+      CodUsu: gasto.CodUsu,
+      ValGas: gasto.ValGas,
+      CodMes: gasto.Meses?.CodMes,
+      DesMes: gasto.Meses?.DesMes,
+    }));
 
-      const matchMes = filtroMesValido
-        ? dataGasto.getMonth() === this.filtros.mes?.getMonth() &&
-          dataGasto.getFullYear() === this.filtros.mes?.getFullYear()
-        : true;
-
-      const matchValor =
-        this.filtros.valor !== null
-          ? this.filtros.tipoValor === 'maior'
-            ? g.valor > this.filtros.valor
-            : this.filtros.tipoValor === 'menor'
-            ? g.valor < this.filtros.valor
-            : g.valor === this.filtros.valor
-          : true;
-
-      const matchCategoria = this.filtros.categoria
-        ? g.categoria
-            .toLowerCase()
-            .includes(this.filtros.categoria.toLowerCase())
-        : true;
-
-      const matchItem = this.filtros.item
-        ? g.item.toLowerCase().includes(this.filtros.item.toLowerCase())
-        : true;
-
-      return matchData && matchMes && matchValor && matchCategoria && matchItem;
-    });*/
+    this.displayData = [...this.gastos];
+    this.resetSortMap();
   }
 
-  limparFiltros(): void {
-    this.filtros = {
-      data: null,
-      mes: null,
-      valor: null,
-      tipoValor: 'igual',
-      categoria: '',
-      item: '',
-    };
-    this.aplicarFiltros();
+  aoSelecionarMes() {
+    this.listarGastos();
+  }
+
+  resetSortMap(): void {
+    Object.keys(this.sortMap).forEach((key) => (this.sortMap[key] = null));
+    this.sortKey = null;
+    this.sortValue = null;
+  }
+
+  onSortChange(sort: any): void {
+    const s = sort as { key: string; value: string | null };
+
+    this.resetSortMap();
+
+    // Converte para keyof Gastos
+    const key = s.key as keyof Gastos;
+    const value = s.value;
+
+    this.sortKey = key;
+    this.sortValue = value;
+    this.sortMap[s.key] = value;
+
+    // Se sortValue ou sortKey for null, reseta a tabela e retorna
+    if (!value || !key) {
+      this.displayData = [...this.gastos];
+      return;
+    }
+
+    this.displayData = [...this.gastos].sort((a, b) => {
+      let compare = 0;
+
+      if (key === 'DatGas') {
+        compare = new Date(a[key]).getTime() - new Date(b[key]).getTime();
+      } else if (key === 'ValGas') {
+        compare = (a[key] as number) - (b[key] as number);
+      } else {
+        const valA = a[key] ? String(a[key]).toLowerCase() : '';
+        const valB = b[key] ? String(b[key]).toLowerCase() : '';
+        compare = valA.localeCompare(valB);
+      }
+
+      return value === 'ascend' ? compare : -compare;
+    });
   }
 }

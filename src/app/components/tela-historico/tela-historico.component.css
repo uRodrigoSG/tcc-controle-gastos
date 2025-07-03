@@ -90,3 +90,7 @@ input[type="number"] {
 .table-wrapper {
   overflow-x: auto;
 }
+
+.campoMes {
+  margin-top: 20px;
+}

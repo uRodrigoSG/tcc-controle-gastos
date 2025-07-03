@@ -44,6 +44,65 @@ export class SupabaseService {
     return { data, error };
   }
 
+  async listarGastos(CodMes: number) {
+    var CodUsu = this.getPerfilAtual().CodUsu;
+    const { data, error } = await this.supabase
+      .from('Gastos')
+      .select(
+        `
+              ValGas, 
+              CodUsu,    
+              CodGas,
+              DatGas,
+              Categorias (
+                CodCat,
+                DesCat
+              ),
+              Itens (
+                CodIte,
+                DesIte
+              ),
+              Meses (
+                CodMes,
+                DesMes
+              )
+            `
+      )
+      .eq('CodMes', CodMes)
+      .eq('CodUsu', CodUsu);
+
+    return { data, error };
+  }
+
+  async listarGastosTotais() {
+    var CodUsu = this.getPerfilAtual().CodUsu;
+    const { data, error } = await this.supabase
+      .from('Gastos')
+      .select(
+        `
+              ValGas, 
+              CodUsu,    
+              CodGas,
+              DatGas,
+              Categorias (
+                CodCat,
+                DesCat
+              ),
+              Itens (
+                CodIte,
+                DesIte
+              ),
+              Meses (
+                CodMes,
+                DesMes
+              )
+            `
+      )
+      .eq('CodUsu', CodUsu);
+
+    return { data, error };
+  }
+
   async inserirCategoria(desCat: string) {
     // Pegar usuario para gravação na tabela de Categorias
     var CodUsu = this.getPerfilAtual().CodUsu;

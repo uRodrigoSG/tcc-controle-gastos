@@ -1,60 +1,89 @@
-<div class="filtros">
-  <nz-date-picker
-    [(ngModel)]="filtros.data"
-    (ngModelChange)="aplicarFiltros()"
-    placeholder="Filtrar por data"
-  ></nz-date-picker>
-  <nz-date-picker
-    nzMode="month"
-    [(ngModel)]="filtros.mes"
-    (ngModelChange)="aplicarFiltros()"
-    placeholder="Filtrar por mês"
-  ></nz-date-picker>
+<nz-form [formGroup]="form" nzLayout="vertical">
+  <nz-form-item class="campoMes">
+    <nz-form-label nzFor="mesConsulta" nzRequired>Mês</nz-form-label>
+    <nz-form-control
+      [nzValidateStatus]="
+        form.controls['mesConsulta'].dirty ||
+        form.controls['mesConsulta'].touched
+          ? form.controls['mesConsulta'].valid
+            ? 'success'
+            : 'error'
+          : ''
+      "
+    >
+      <nz-select
+        formControlName="mesConsulta"
+        id="mesConsulta"
+        nzPlaceHolder="Selecione o mês"
+        (ngModelChange)="aoSelecionarMes()"
+      >
+        <nz-option nzValue="1" nzLabel="Janeiro"></nz-option>
+        <nz-option nzValue="2" nzLabel="Fevereiro"></nz-option>
+        <nz-option nzValue="3" nzLabel="Março"></nz-option>
+        <nz-option nzValue="4" nzLabel="Abril"></nz-option>
+        <nz-option nzValue="5" nzLabel="Maio"></nz-option>
+        <nz-option nzValue="6" nzLabel="Junho"></nz-option>
+        <nz-option nzValue="7" nzLabel="Julho"></nz-option>
+        <nz-option nzValue="8" nzLabel="Agosto"></nz-option>
+        <nz-option nzValue="9" nzLabel="Setembro"></nz-option>
+        <nz-option nzValue="10" nzLabel="Outubro"></nz-option>
+        <nz-option nzValue="11" nzLabel="Novembro"></nz-option>
+        <nz-option nzValue="12" nzLabel="Dezembro"></nz-option>
+      </nz-select>
 
-  <input
-    nz-input
-    type="number"
-    [(ngModel)]="filtros.valor"
-    (ngModelChange)="aplicarFiltros()"
-    placeholder="Valor"
-  />
-  <nz-select [(ngModel)]="filtros.tipoValor" (ngModelChange)="aplicarFiltros()">
-    <nz-option nzValue="igual" nzLabel="Igual"></nz-option>
-    <nz-option nzValue="maior" nzLabel="Maior que"></nz-option>
-    <nz-option nzValue="menor" nzLabel="Menor que"></nz-option>
-  </nz-select>
+      <!-- Mensagem de erro sem nz-form-explain -->
+      <div
+        class="ant-form-item-explain ant-form-item-explain-error"
+        *ngIf="
+          (form.controls['mesConsulta'].dirty ||
+            form.controls['mesConsulta'].touched) &&
+          form.controls['mesConsulta'].hasError('required')
+        "
+      >
+        Por favor, selecione um mês.
+      </div>
+    </nz-form-control>
+  </nz-form-item>
+</nz-form>
 
-  <input
-    nz-input
-    [(ngModel)]="filtros.categoria"
-    (ngModelChange)="aplicarFiltros()"
-    placeholder="Categoria"
-  />
-  <input
-    nz-input
-    [(ngModel)]="filtros.item"
-    (ngModelChange)="aplicarFiltros()"
-    placeholder="Item"
-  />
-
-  <button nz-button (click)="limparFiltros()">Limpar</button>
-</div>
-
-<nz-table [nzData]="gastosFiltrados" [nzBordered]="true" [nzSize]="'middle'">
+<nz-table
+  #basicTable
+  [nzData]="displayData"
+  [nzFrontPagination]="false"
+  [nzPageSize]="10"
+  [nzShowPagination]="true"
+  (nzSortChange)="onSortChange($event)"
+>
   <thead>
     <tr>
-      <th>Data</th>
-      <th>Categoria</th>
-      <th>Item</th>
-      <th>Valor (R$)</th>
+      <th nzShowSort nzSortKey="CodGas" [nzSortOrder]="sortMap['CodGas']">
+        Código
+      </th>
+      <th nzShowSort nzSortKey="DatGas" [nzSortOrder]="sortMap['DatGas']">
+        Data
+      </th>
+      <th nzShowSort nzSortKey="DesCat" [nzSortOrder]="sortMap['DesCat']">
+        Categoria
+      </th>
+      <th nzShowSort nzSortKey="DesIte" [nzSortOrder]="sortMap['DesIte']">
+        Item
+      </th>
+      <th nzShowSort nzSortKey="ValGas" [nzSortOrder]="sortMap['ValGas']">
+        Valor
+      </th>
+      <th nzShowSort nzSortKey="DesMes" [nzSortOrder]="sortMap['DesMes']">
+        Mês
+      </th>
     </tr>
   </thead>
-  <!--<tbody>
-    <tr *ngFor="let gasto of gastosFiltrados">
-      <td>{{ gasto.data | date : "shortDate" }}</td>
-      <td>{{ gasto.categoria }}</td>
-      <td>{{ gasto.item }}</td>
-      <td>{{ gasto.valor | currency : "BRL" }}</td>
+  <tbody>
+    <tr *ngFor="let gasto of displayData">
+      <td>{{ gasto.CodGas }}</td>
+      <td>{{ gasto.DatGas | date : "dd/MM/yyyy" }}</td>
+      <td>{{ gasto.DesCat }}</td>
+      <td>{{ gasto.DesIte }}</td>
+      <td>{{ gasto.ValGas | currency : "BRL" }}</td>
+      <td>{{ gasto.DesMes }}</td>
     </tr>
-  </tbody>-->
+  </tbody>
 </nz-table>
